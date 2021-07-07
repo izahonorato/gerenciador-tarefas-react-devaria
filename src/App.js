@@ -1,9 +1,7 @@
-
+import {Login} from './pages/Login'
 function App() {
   return (
-    <div className="App">
-      <h1>Gerenciador de tarefas</h1>
-    </div>
+    <Login/>
   );
 }
 
