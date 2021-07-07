@@ -1,0 +1,19 @@
+@import './config.scss';
+
+.container-login{
+    .logo{
+        display: block;
+        margin: auto;
+        margin-bottom: 30px;
+        width: 196.8px;
+    } 
+    button{
+        width: 100%;
+        height: 56px;
+        background-color: $primaryColor;
+        border-color: $primaryColor;
+        color: white;
+        border-radius: 12px;
+        font-size: 17px;
+    }
+}
