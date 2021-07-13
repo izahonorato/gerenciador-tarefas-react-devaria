@@ -3,22 +3,36 @@ import logo from '../assets/icons/logo.svg'; //importando o arquivo svg e jogand
 import mail from '../assets/icons/mail.svg';
 import lock from '../assets/icons/lock.svg';
 import { Input } from '../components/Input';
+import { executaRequisicao } from '../services/api';
 
 export const Login = () => {
 
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
+    const [msgErro, setMsgErro] = useState('Olá');
     const [isLoading, setLoading] = useState(false);
 
-    const executaLogin = evento =>{
-        evento.preventDefault();
-        setLoading(true);
-        console.log('login', login);
-        console.log('senha', senha);
+    const executaLogin = async evento =>{
 
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
+        try{
+            evento.preventDefault();
+        setLoading(true);
+        
+        const body = {
+            login,
+            senha
+        };
+
+        const resultado = await executaRequisicao('login', 'POST', body);
+        console.log(resultado);
+
+        }catch(e){
+            if(e?.response?.data?.erro){
+                setMsgErro(e.response.data.erro);
+            }
+            console.log(e)
+        }
+        setLoading(false);
     }
 
     return(
@@ -29,6 +43,7 @@ export const Login = () => {
                 className="logo"
             />
             <form>
+                {msgErro && <p>{msgErro}</p>}
                 <Input
                     srcImg={mail} 
                     altImg="Icone email"
