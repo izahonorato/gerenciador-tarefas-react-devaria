@@ -12,14 +12,14 @@ function App() {
   return (
     <Switch>
       {!accessToken ?
-      <Route path="*">
-        <Login setAccessToken={setAccessToken}/>
-      </Route> 
-      :
-      <Route path="*">
-        <Home setAccessToken={setAccessToken}/>
-      </Route> 
-      }
+        <Route path="*">
+          <Login setAccessToken={setAccessToken}/>
+        </Route> 
+        :
+        <Route path="*">
+          <Home setAccessToken={setAccessToken}/>
+        </Route> 
+        }
     </Switch>
     );
 }
