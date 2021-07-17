@@ -5,11 +5,11 @@ import lock from '../assets/icons/lock.svg';
 import { Input } from '../components/Input';
 import { executaRequisicao } from '../services/api';
 
-export const Login = () => {
+export const Login = props => {
 
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
-    const [msgErro, setMsgErro] = useState('Olá');
+    const [msgErro, setMsgErro] = useState('');
     const [isLoading, setLoading] = useState(false);
 
     const executaLogin = async evento =>{
@@ -17,6 +17,7 @@ export const Login = () => {
         try{
             evento.preventDefault();
         setLoading(true);
+        setMsgErro('');
         
         const body = {
             login,
@@ -25,6 +26,13 @@ export const Login = () => {
 
         const resultado = await executaRequisicao('login', 'POST', body);
         console.log(resultado);
+        if(resultado?.data?.token)
+        {
+            localStorage.setItem('accessToken', resultado.data.token);
+            localStorage.setItem('usuarioNome', resultado.data.nome);
+            localStorage.setItem('usuarioEmail', resultado.data.email);
+            props.setAccessToken(resultado.data.token);
+        }
 
         }catch(e){
             if(e?.response?.data?.erro){
